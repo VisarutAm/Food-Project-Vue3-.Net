@@ -2,13 +2,16 @@ import './style.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import App from './App.vue'
 import router from './router'
 
 const app = createApp(App)
+const pinia = createPinia() // ✅ สร้าง instance แล้วเก็บไว้ในตัวแปร
+pinia.use(piniaPluginPersistedstate) // ✅ ให้ pinia ใช้ persistedstate
+app.use(pinia)
 
-app.use(createPinia())
 app.use(router)
 
 app.mount('#app')
+
