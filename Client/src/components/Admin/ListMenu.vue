@@ -32,7 +32,7 @@ const generateDriveUrl = (driveUrl) => {
 const deleteItem = async (id) => {
   console.log("🧪 ลองกดลบ id:", id);
   try {
-    await axios.delete(`http://localhost:5203/api/food/delete/${id}`);
+    await axios.delete(`http://localhost:7089/api/food/delete/${id}`);
     alert("ลบเมนูเรียบร้อยแล้ว");
     menuList.value = menuList.value.filter((item) => item.id !== id);
   } catch (error) {

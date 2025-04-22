@@ -10,6 +10,10 @@ namespace Server.DTOs.Payment
     public List<ItemDto> Items { get; set; }
     public decimal Amount { get; set; }
     public DateTime Date { get; set; }  
+      public string Payment { get; set; }
+    public string Status { get; set; }
+    public string Email { get; set; }
+   
 }
 
 public class ItemDto
@@ -23,5 +27,7 @@ public class ItemDto
     public string DriveUrl { get; set; }
     public string FileName { get; set; }
     public DateTime UploadedAt { get; set; }  
+
+   
 } 
 }

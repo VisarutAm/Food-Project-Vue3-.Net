@@ -125,7 +125,7 @@ const name = ref("");
 const lastname = ref("");
 const router = useRouter();
 
-const baseUrl = "http://localhost:5203/api/auth";
+const baseUrl = "https://localhost:7089/api/auth";
 
 const handleSubmit = async () => {
   try {

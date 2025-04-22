@@ -14,6 +14,7 @@ using Server.Service;
 using MongoDB.Driver;
 using Server.Interfaces;
 using Server.Repository;
+using StripeOrderService = Stripe.Climate.OrderService; 
 
 Env.Load();
 
@@ -82,26 +83,34 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
-builder.Services.AddControllers().AddNewtonsoftJson(options =>
-{
-    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-});
+
 
 builder.Services.AddSingleton<MongoDbContext>();
 builder.Services.AddSingleton<JwtService>();
 builder.Services.AddScoped<IMenuRepository, MenuRepository>();
+builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
+builder.Services.AddSingleton<OrderService>();
+builder.Services.AddSingleton<IMongoCollection<Order>>(sp =>
+{
+    var mongoClient = sp.GetRequiredService<IMongoClient>();
+    var database = mongoClient.GetDatabase("MyDb");
+    return database.GetCollection<Order>("Orders");
+});
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend",
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:5173") // เปลี่ยนตามพอร์ตของ Vue
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
-        });
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173") // URL ของ frontend
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials(); // เพิ่ม AllowCredentials() เพื่อรองรับการส่งข้อมูลจาก frontend
+    });
 });
-
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+});
 
 var app = builder.Build();
 app.UseCors("AllowFrontend");
@@ -119,5 +128,4 @@ app.MapControllers();
 
 
 app.Run();
-
 

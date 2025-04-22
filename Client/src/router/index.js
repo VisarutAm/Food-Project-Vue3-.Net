@@ -4,6 +4,9 @@ import LogInView from '@/views/LogInView.vue'
 import AddFoodsView from '@/views/Admin/AddFoodsView.vue'
 import ListMenu from '@/components/Admin/ListMenu.vue'
 import CartView  from '../views/CartView.vue'
+import SuccessView from '@/views/SuccessView.vue'
+import MyOrderView from '@/views/MyOrderView.vue'
+import OrdersAdminView from '@/views/Admin/OrdersAdminView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +36,21 @@ const router = createRouter({
       name: 'Cart',
       component: CartView,
     },
+    {
+      path: "/success",
+      name: "Success",
+      component: SuccessView,
+    },
+    {
+      path: "/myorder",
+      name: "Myorder",
+      component: MyOrderView,
+    }, {
+      path: "/orders",
+      name: "OrdersAddmin",
+      component: OrdersAdminView,
+    },
+
   ],
 })
 

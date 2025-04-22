@@ -167,7 +167,7 @@ const isMenuOpen = ref(false);
 const Menu = ref([
   { name: "AddItem", href: "/admin" },
   { name: "ListMenu", href: "/list" },
-  { name: "Order " },
+  { name: "Orders ", href: "/orders" },
 ]);
 const scrollToSection = (href) => {
   isMenuOpen.value = false;

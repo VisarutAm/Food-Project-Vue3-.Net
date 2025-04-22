@@ -1,5 +1,8 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+// import { useAuthStore } from "./useAuthStore";
+
+// const authStore = useAuthStore();
 
 export const useOrderStore = defineStore("Orders", {
   state: () => ({
@@ -7,11 +10,23 @@ export const useOrderStore = defineStore("Orders", {
       items: [],
       amount: 0,
       status: "Food Processing",
-      date: "",
-      payment: "",
+      date: new Date().toISOString(),
+      payment: "Pending",
+      email:"",
     },
   }),
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key: "Orders", // ชื่อที่ใช้เก็บใน localStorage
+      },
+    ],
+  },
   actions: {
+    setEmail(email) {
+      this.orderData.email = email;
+    },
     addItem(item) {
       const newItem = { ...item, quantity: item.quantity ?? 1 };
       this.orderData.items.push(newItem);
@@ -30,14 +45,25 @@ export const useOrderStore = defineStore("Orders", {
     },
 
     async submitOrder() {
+      console.log(">> submitOrder CALLED <<");
       try {
+        const { useAuthStore } = await import("./useAuthStore");
+        const authStore = useAuthStore(); // ✅ เรียกตรงนี้
+        debugger; // ⏸ หยุดตรงนี้ให้ inspect ได้
+        console.log("Auth Store:", authStore);
+        console.log("Email from Auth Store:", authStore.email);
+        alert("Email: " + authStore.email);
+
+        this.orderData.email = authStore.email;
+
         const response = await axios.post(
-          "http://localhost:5203/api/orders",
+          "https://localhost:70899/กกกapi/orders",
           this.orderData
         );
         this.orderData.status = "submitted";
         this.orderData.date = new Date().toISOString();
         //this.orderHistory.push({ ...this.orderData }) // บันทึกลง history
+        //  this.orderData.email = authStore.email;
         this.resetOrder();
         return response.data;
       } catch (error) {

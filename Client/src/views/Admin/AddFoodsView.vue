@@ -94,7 +94,7 @@ const formData = ref({
   category: 'Salad',
 })
 
-const url = 'http://localhost:5203' // เปลี่ยนตาม API จริง
+const url = 'https://localhost:7089' // เปลี่ยนตาม API จริง
 
 const handleImageChange = (e) => {
   const file = e.target.files[0]
