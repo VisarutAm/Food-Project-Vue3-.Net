@@ -80,3 +80,4 @@ C:\Users\Ampere\Project\Thai-Food-Vue3-.Net\Server\bin\Debug\net8.0\runtimes\win
 C:\Users\Ampere\Project\Thai-Food-Vue3-.Net\Server\bin\Debug\net8.0\Stripe.net.dll
 C:\Users\Ampere\Project\Thai-Food-Vue3-.Net\Server\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
 C:\Users\Ampere\Project\Thai-Food-Vue3-.Net\Server\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Ampere\Project\Thai-Food-Vue3-.Net\Server\obj\Debug\net8.0\Server.sourcelink.json

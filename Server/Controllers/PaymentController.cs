@@ -190,15 +190,26 @@ public async Task<IActionResult> GetOrdersByEmail(string email)
     return Ok(orders);
 }
 
+// [HttpPut("status/{id}")]
+// public async Task<IActionResult> UpdateOrderStatus(string id, [FromBody] string newStatus)
+// {
+//     var updated = await _orderService.UpdateOrderStatusAsync(id, newStatus);
+//     if (!updated)
+//         return NotFound(new { message = "Order not found or not updated" });
+
+//     return Ok(new { message = "Status updated" });
+// }
+
 [HttpPut("status/{id}")]
-public async Task<IActionResult> UpdateOrderStatus(string id, [FromBody] string newStatus)
+public async Task<IActionResult> UpdateOrderStatus(string id, [FromBody] UpdateStatusDto request)
 {
-    var updated = await _orderService.UpdateOrderStatusAsync(id, newStatus);
+    var updated = await _orderService.UpdateOrderStatusAsync(id, request.NewStatus);
     if (!updated)
         return NotFound(new { message = "Order not found or not updated" });
 
     return Ok(new { message = "Status updated" });
 }
+
 
     }
 }

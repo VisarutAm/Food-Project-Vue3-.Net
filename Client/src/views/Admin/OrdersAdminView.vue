@@ -74,7 +74,8 @@ const statusHandler = async (event, orderId) => {
   try {
     const response = await axios.put(
       `https://localhost:7089/api/order/status/${orderId}`,
-      `"${newStatus}"`, // 👈 อย่าลืมส่งแบบ object ที่ API รองรับ
+    //   `"${newStatus}"`, // 👈 อย่าลืมส่งแบบ object ที่ API รองรับ
+    { newStatus }, // 👈 อย่าลืมส่งแบบ object ที่ API รองรับ
       {
         headers: {
           "Content-Type": "application/json",
