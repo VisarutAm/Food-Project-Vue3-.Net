@@ -56,24 +56,24 @@ onMounted(async () => {
 
 const fetchOrders = async () => {
   try {
-    const response = await axios.get("https://localhost:7089/api/order/all");
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/order/all`);
     orders.value = response.data;
-    console.log("response.data", response.data[0].id);
+    //console.log("response.data", response.data[0].id);
   } catch (error) {
     console.error("Error fetching orders:", error);
   }
 };
 const handleStatusChange = (event, orderId) => {
   statusHandler(event, orderId);
-  console.log(" orderId:", orderId);
+  //console.log(" orderId:", orderId);
 };
 
 const statusHandler = async (event, orderId) => {
-  console.log("✅ statusHandler called"); // 🔍 debug
+  //console.log("✅ statusHandler called"); // 🔍 debug
   const newStatus = event.target.value;
   try {
     const response = await axios.put(
-      `https://localhost:7089/api/order/status/${orderId}`,
+      `${import.meta.env.VITE_API_URL}/api/order/status/${orderId}`,
     //   `"${newStatus}"`, // 👈 อย่าลืมส่งแบบ object ที่ API รองรับ
     { newStatus }, // 👈 อย่าลืมส่งแบบ object ที่ API รองรับ
       {

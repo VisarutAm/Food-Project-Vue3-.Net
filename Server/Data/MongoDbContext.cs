@@ -22,7 +22,7 @@ namespace Server.Data
     public IMongoCollection<AppUser> Users =>
         _db.GetCollection<AppUser>("Users");
 
-    public IMongoDatabase Database=> _db;  
+    //public IMongoDatabase Database=> _db;  
     public IMongoCollection<FileRecord> Files => _db.GetCollection<FileRecord>("Files");  
 }
 

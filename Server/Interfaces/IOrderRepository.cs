@@ -8,7 +8,7 @@ namespace Server.Interfaces
 {
     public interface IOrderRepository
     {
-         Task<List<Order>> GetAllAsync();
+        Task<List<Order>> GetAllAsync();
         Task<List<Order>> GetByEmailAsync(string email);
         Task<bool> UpdateStatusAsync(string orderId, string newStatus);
         Task CreateAsync(Order order);

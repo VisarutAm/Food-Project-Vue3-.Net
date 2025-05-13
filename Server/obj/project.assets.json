@@ -7704,11 +7704,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ampere\\Project\\Thai-Food-Vue3-.Net\\Server\\Server.csproj",
+      "projectUniqueName": "C:\\Users\\Ampere\\TestProject\\Food-Project-Vue3-.Net\\Server\\Server.csproj",
       "projectName": "Server",
-      "projectPath": "C:\\Users\\Ampere\\Project\\Thai-Food-Vue3-.Net\\Server\\Server.csproj",
+      "projectPath": "C:\\Users\\Ampere\\TestProject\\Food-Project-Vue3-.Net\\Server\\Server.csproj",
       "packagesPath": "C:\\Users\\Ampere\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ampere\\Project\\Thai-Food-Vue3-.Net\\Server\\obj\\",
+      "outputPath": "C:\\Users\\Ampere\\TestProject\\Food-Project-Vue3-.Net\\Server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Ampere\\AppData\\Roaming\\NuGet\\NuGet.Config"

@@ -27,6 +27,7 @@
           required
         />
       </div>
+      <p v-if="errorMessage" class="text-red-600 text-lg mt-2">{{ errorMessage }}</p>
       <button
        type="submit"
         class="w-full border-4 border-primary p-3 my-5 text-xl font-bold bg-[#FFF085] text-primary rounded-full"
@@ -90,6 +91,7 @@
           required
         />
       </div>
+      <p v-if="errorMessage" class="text-red-600 text-lg mt-2">{{ errorMessage }}</p>
       <button
         type="submit"
         class="w-full border-4 border-primary p-3 my-5 text-xl font-bold bg-[#FFF085] text-primary rounded-full"
@@ -117,28 +119,27 @@ import axios from "axios";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "../stores/useAuthStore";
 const authStore = useAuthStore();
+const router = useRouter();
 
-const isSignInStatus = ref("SignUp");
+const isSignInStatus = ref("SignIn");
 const email = ref("");
 const password = ref("");
 const name = ref("");
 const lastname = ref("");
-const router = useRouter();
-
-const baseUrl = "https://localhost:7089/api/auth";
+const errorMessage = ref("");
 
 const handleSubmit = async () => {
   try {
     let res;
     if (isSignInStatus.value === "SignUp") {
-      res = await axios.post(`${baseUrl}/register`, {
+      res = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
         email: email.value,
         password: password.value,
         username: name.value,
         lastname: lastname.value,
       });
     } else {
-      res = await axios.post(`${baseUrl}/login`, {
+      res = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
         email: email.value,
         password: password.value,
       });
@@ -159,10 +160,11 @@ const handleSubmit = async () => {
 
     router.push("/");
   } catch (err) {
-    alert(
-      "Authentication failed: " +
-        (err.response?.data ?? err.message ?? "Unknown error")
-    );
+    errorMessage.value =
+    err.response?.data.message ??
+    err.response?.data ??
+    err.message ??
+    "Unknown error";
   }
 };
 </script>

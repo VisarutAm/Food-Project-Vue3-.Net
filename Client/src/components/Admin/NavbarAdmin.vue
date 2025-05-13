@@ -7,7 +7,7 @@
         backdrop-filter: blur(15px);
       "
     >
-      <h1 class="text-primary text-5xl font-bold">Thai Food.</h1>
+      <router-link to="/" class="text-primary text-5xl font-bold">Thai Food.</router-link>
 
       <!-- Mobile Toggle Button -->
       <div class="md:hidden z-30">
@@ -77,11 +77,13 @@
                   <p>Orders</p>
                 </li>
                 <li class="text-center font-medium">
+                  <router-link to="/admin">
                   <p
                     v-if="authStore.token && authStore.response.role == 'Admin'"
                   >
                     Admindashboard
                   </p>
+                </router-link>
                 </li>
                 <li
                   @click="handleLogout"
@@ -162,6 +164,8 @@
 import Button from "../UI/Button.vue";
 import { ref, onMounted } from "vue";
 import { useAuthStore } from "../../stores/useAuthStore";
+import { useRouter } from "vue-router";
+const router = useRouter()
 const authStore = useAuthStore();
 const isMenuOpen = ref(false);
 const Menu = ref([
@@ -178,11 +182,12 @@ const scrollToSection = (href) => {
 };
 const handleLogout = () => {
   authStore.logout(); // ล้าง token + user จาก store
+  router.push("/")
 };
 onMounted(() => {
-  console.log("🧑‍💻 token:", authStore.token);
+  //console.log("🧑‍💻 token:", authStore.token);
   //   console.log('🧑‍💻 user:', authStore.user)
-  console.log("🧑‍💻 Response:", authStore.response);
+//  console.log("🧑‍💻 Response:", authStore.response);
 });
 // watch(() => authStore.token, (newUser) => {
 //   console.log('🧑‍💻 user changed:', newUser)

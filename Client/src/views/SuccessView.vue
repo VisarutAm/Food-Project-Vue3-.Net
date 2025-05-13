@@ -55,7 +55,7 @@ onMounted(async () => {
     console.log("🧾 orderData ที่ส่ง:", plainOrderData);
     debugger; // ⏸ หยุดตรงนี้ให้ inspect ได้
     const response = await axios.post(
-      "https://localhost:7089/api/order",
+      `${import.meta.env.VITE_API_URL}/api/order`,
       plainOrderData,
       {
         withCredentials: true,

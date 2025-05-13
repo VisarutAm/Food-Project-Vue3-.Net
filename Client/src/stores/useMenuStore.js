@@ -14,9 +14,9 @@ export const useMenuStore = defineStore('menu', {
       this.loading = true
       this.error = null
       try {
-        const res = await axios.get('https://localhost:7089/api/food/allmenu')
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/food/allmenu`)
         this.menuList = res.data
-        console.log(res.data)
+       // console.log(res.data)
       } catch (err) {
         this.error = err.message || 'Failed to fetch menu'
         console.error('Fetch menu error:', err)

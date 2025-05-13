@@ -1,5 +1,5 @@
 <template>
-    <div class="w-[205px] h-[350px] border-4 border-primary rounded-xl">
+    <div class="w-[220px] h-[400px] border-4 border-primary rounded-xl">
         <iframe
               :src="generateDriveUrl(item.driveUrl)"
               style="
@@ -8,23 +8,22 @@
                 border: none;
                 overflow: hidden;
                 border-radius: 9px;
+                margin: 0px 5px;
+                
               "
               allow="autoplay"
               scrolling="no"
             ></iframe>
             <div class="description m-4 ">               
             <p class="font-bold text-xl text-primary">{{ item.name }}</p>
-            <p class="font-medium">{{ item.description }}</p>
+            <p class="font-medium">{{ item.category }}</p>
             <p class="font-medium text-3xl m-2 text-orange-500">฿ {{ item.price }}</p>
             
             <img src="../../assets/rating_starts.png"/>
             <!-- 🔘 ปุ่ม Add / Remove -->
       <div class="flex justify-between items-center mt-4">
         <button class="bg-green-500 text-white px-3 py-1 rounded-xl" @click="addToOrder">➕</button>
-        <p class="font-bold text-lg text-primary">
-            <!-- {{
-    orderStore.orderData.items.find(i => i._id === item._id)?.quantity || 0
-  }} -->
+        <p class="font-bold text-lg text-primary">           
   {{ orderStore.orderData.items.find(i => i.id === item.id)?.quantity || 0 }}
         </p>
         <button class="bg-red-500 text-white px-3 py-1 rounded-xl" @click="removeFromOrder">➖</button>

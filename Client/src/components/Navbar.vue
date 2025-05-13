@@ -58,7 +58,7 @@
           Hello,
           {{ authStore.response.userName + "  " + authStore.response.lastname }}
         </p>
-        <div class="flex flex-row text-center ml-10">
+        <div class="flex flex-row text-center ml-10 gap-5">
           <router-link to="/cart" class="relative w-10 h-10">
     <img
       src="../assets/shopping-basket.png"
@@ -85,12 +85,12 @@
             class="navbar-profile "
           >
             <li class="text-center font-medium">
-              <p>Orders</p>
+              <router-link to="/myorder">Orders</router-link>
             </li>
             <li class="text-center font-medium">
-              <p v-if="authStore.token && authStore.response.role == 'Admin'">
+              <router-link to="/admin" v-if="authStore.token && authStore.response.role == 'Admin'">
                 Admindashboard
-              </p>
+              </router-link>
             </li>            
             <li @click="handleLogout" class="text-center font-bold block text-red-500 cursor-pointer">
               <p>Logout</p>
@@ -145,12 +145,12 @@
             class="navbar-profile-dropdown absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-100 border-green-800 border-2"
           >
             <li class="text-center font-medium">
-              <p>Orders</p>
+              <router-link to="/myorder">Orders</router-link>
             </li>
             <li class="text-center font-medium">
-              <p v-if="authStore.token && authStore.response.role == 'Admin'">
+              <router-link to="/admin" v-if="authStore.token && authStore.response.role == 'Admin'">
                 Admindashboard
-              </p>
+              </router-link>
             </li>
             <hr />
             <li @click="handleLogout" class="text-center font-medium cursor-pointer">
@@ -175,15 +175,18 @@ import Button from "./UI/Button.vue";
 import { ref, onMounted,watch } from "vue";
 import { useAuthStore } from "../stores/useAuthStore";
 import {useOrderStore} from '../stores/useOrderStore'
+import { useRouter } from "vue-router";
+
 
 const orderStore = useOrderStore()
 const authStore = useAuthStore();
 const isMenuOpen = ref(false);
+const router = useRouter()
 const Menu = ref([
   { name: "Home", href: "#home" },
   { name: "Menu", href: "#menu" },
-  { name: "Mobile App", href: "#mobile App" },
-  { name: "Contact Us", href: "#contact Us" },
+  { name: "Mobile App", href: "#mobile-app" },
+  { name: "Contact Us", href: "#contact-us" },
 ]);
 const scrollToSection = (href) => {
   isMenuOpen.value = false;
@@ -194,6 +197,7 @@ const scrollToSection = (href) => {
 };
 const handleLogout = () => {
   authStore.logout(); // ล้าง token + user จาก store
+  router.push("/")
 };
 onMounted(() => {
   console.log("🧑‍💻 token:", authStore.token);

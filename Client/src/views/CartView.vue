@@ -185,7 +185,7 @@ const generateDriveUrl = (driveUrl) => {
   }
 };
 
-onMounted(() => console.log("order", orderStore.orderData));
+//onMounted(() => console.log("order", orderStore.orderData));
 
 const addToOrder = (item) => {
   const index = orderStore.orderData.items.findIndex((i) => i.id === item.id);
@@ -222,10 +222,10 @@ const proceedToPayment = async () => {
     console.log("Calling Stripe API");
     console.log("🧾 orderData ที่ส่ง:", plainOrderData);
     const response = await axios.post(
-      "https://localhost:7089/api/order/payment",
+      `${import.meta.env.VITE_API_URL}/api/order/payment`,
       plainOrderData,
       {
-        withCredentials: true,
+        withCredentials: true, //ให้ axios ส่ง  credential ไปกับ request (จำเป็นใน cross-origin auth)
       }
     );
     console.log("response", response);

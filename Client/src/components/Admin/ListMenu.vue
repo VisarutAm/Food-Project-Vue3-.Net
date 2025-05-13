@@ -4,6 +4,7 @@ import { onMounted, watch, ref, computed } from "vue";
 import { useMenuStore } from "../../stores/useMenuStore";
 import { storeToRefs } from "pinia";
 import axios from "axios";
+import { toRaw } from 'vue';
 
 const menuStore = useMenuStore();
 const { fetchMenu } = menuStore;
@@ -11,12 +12,12 @@ const { menuList, loading, error } = storeToRefs(menuStore);
 
 onMounted(async () => {
   await fetchMenu();
-  console.log("✅ เมนูที่โหลดมา:", menuList.value);
+ // console.log("✅ เมนูที่โหลดมา:", menuList.value);
 });
 
-watch(menuList, (val) => {
-  console.log("📦 อัปเดตเมนู:", val);
-});
+// watch(menuList, (val) => {
+//   console.log("📦 อัปเดตเมนู:", val);
+// });
 
 // ฟังก์ชั่นสำหรับสร้าง URL ใหม่จาก driveUrl
 const generateDriveUrl = (driveUrl) => {
@@ -30,11 +31,15 @@ const generateDriveUrl = (driveUrl) => {
 };
 
 const deleteItem = async (id) => {
-  console.log("🧪 ลองกดลบ id:", id);
+  let clonedMenuList = structuredClone(toRaw(menuList.value));
+  // console.log("🧪 ลองกดลบ id:", id);
+  // console.log("🧪 menuList:", clonedMenuList);
+  // console.log(typeof id);
   try {
-    await axios.delete(`http://localhost:7089/api/food/delete/${id}`);
+    await axios.delete(`https://localhost:7089/api/food/delete/${id}`);
     alert("ลบเมนูเรียบร้อยแล้ว");
-    menuList.value = menuList.value.filter((item) => item.id !== id);
+    clonedMenuList = clonedMenuList.filter((item) => item.id !== id);
+    menuList.value = clonedMenuList; 
   } catch (error) {
     console.error("Delete error:", error);
     alert(error.response?.data?.message || "ลบไม่สำเร็จ");

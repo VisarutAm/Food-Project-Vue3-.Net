@@ -29,8 +29,7 @@ namespace Server.Controllers
         public async Task<IActionResult> Register(RegisterDto registerDto)
 
         {
-            Console.WriteLine($"Login attempt: {registerDto.Email}");
-
+            //Console.WriteLine($"Login attempt: {registerDto.Email}");
 
             var existingUser = await _userService.GetByEmailAsync(registerDto.Email);
             if (existingUser != null)

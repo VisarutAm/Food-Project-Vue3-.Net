@@ -7,14 +7,33 @@ import CartView  from '../views/CartView.vue'
 import SuccessView from '@/views/SuccessView.vue'
 import MyOrderView from '@/views/MyOrderView.vue'
 import OrdersAdminView from '@/views/Admin/OrdersAdminView.vue'
+import { useAuthStore } from '@/stores/useAuthStore'
+
+const requireAuth = (to, from, next) => {
+  const authStore = useAuthStore()
+  if (!authStore.token) {
+    next('/login')
+  } else {
+    next()
+  }
+}
+
+const requireAdmin = (to, from, next) => {
+  const authStore = useAuthStore()
+      if (authStore.token && authStore.response.role === 'Admin') {
+    next() 
+  } else {
+    next('/')
+  }
+}
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
       name: 'home',
-      component: HomeView,
+      component: HomeView,      
     },
     {
       path: '/login',
@@ -22,33 +41,42 @@ const router = createRouter({
       component: LogInView,
     },
     {
-      path: '/admin',
-      name: 'admin',
-      component: AddFoodsView,
-    },
-    {
-      path: '/list',
-      name: 'ListMenu',
-      component: ListMenu,
-    },
-    {
       path: '/cart',
       name: 'Cart',
       component: CartView,
+      beforeEnter: requireAuth,
+      
     },
     {
       path: "/success",
       name: "Success",
-      component: SuccessView,
+      component: SuccessView,   
+      beforeEnter: requireAuth,  
+     
     },
     {
       path: "/myorder",
       name: "Myorder",
       component: MyOrderView,
-    }, {
+      beforeEnter: requireAuth,  
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: AddFoodsView,
+      beforeEnter: requireAdmin,
+    },
+    {
+      path: '/list',
+      name: 'ListMenu',
+      component: ListMenu,
+      beforeEnter: requireAdmin,
+    },  
+    {
       path: "/orders",
-      name: "OrdersAddmin",
+      name: "OrdersAdmin",
       component: OrdersAdminView,
+      beforeEnter: requireAdmin 
     },
 
   ],

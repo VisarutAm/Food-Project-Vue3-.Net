@@ -36,7 +36,7 @@ namespace Server.Repository
 
         public async Task<List<FileRecord>> GetAllAsync()
         {
-            Console.WriteLine("[MenuRepository] GetAllAsync called");
+            //Console.WriteLine("[MenuRepository] GetAllAsync called");
 
             var bsonDocs = await _collection.Find(_ => true).ToListAsync();
             Console.WriteLine($"[MenuRepository] Raw Count: {bsonDocs.Count}");

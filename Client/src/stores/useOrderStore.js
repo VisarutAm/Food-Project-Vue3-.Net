@@ -44,32 +44,32 @@ export const useOrderStore = defineStore("Orders", {
       }, 0);
     },
 
-    async submitOrder() {
-      console.log(">> submitOrder CALLED <<");
-      try {
-        const { useAuthStore } = await import("./useAuthStore");
-        const authStore = useAuthStore(); // ✅ เรียกตรงนี้
-        debugger; // ⏸ หยุดตรงนี้ให้ inspect ได้
-        console.log("Auth Store:", authStore);
-        console.log("Email from Auth Store:", authStore.email);
-        alert("Email: " + authStore.email);
+    // async submitOrder() {
+    //   //console.log(">> submitOrder CALLED <<");
+    //   try {
+    //     const { useAuthStore } = await import("./useAuthStore");
+    //     const authStore = useAuthStore(); // ✅ เรียกตรงนี้
+    //     //debugger; // ⏸ หยุดตรงนี้ให้ inspect ได้
+    //     //console.log("Auth Store:", authStore);
+    //    //console.log("Email from Auth Store:", authStore.email);
+    //     //alert("Email: " + authStore.email);
 
-        this.orderData.email = authStore.email;
+    //     this.orderData.email = authStore.email;
 
-        const response = await axios.post(
-          "https://localhost:70899/กกกapi/orders",
-          this.orderData
-        );
-        this.orderData.status = "submitted";
-        this.orderData.date = new Date().toISOString();
-        //this.orderHistory.push({ ...this.orderData }) // บันทึกลง history
-        //  this.orderData.email = authStore.email;
-        this.resetOrder();
-        return response.data;
-      } catch (error) {
-        console.error("Error submitting order:", error);
-        this.orderData.status = "failed";
-      }
-    },
+    //     const response = await axios.post(
+    //       "https://localhost:70899/กกกapi/orders",
+    //       this.orderData
+    //     );
+    //     this.orderData.status = "submitted";
+    //     this.orderData.date = new Date().toISOString();
+    //     //this.orderHistory.push({ ...this.orderData }) // บันทึกลง history
+    //     //  this.orderData.email = authStore.email;
+    //     this.resetOrder();
+    //     return response.data;
+    //   } catch (error) {
+    //     console.error("Error submitting order:", error);
+    //     this.orderData.status = "failed";
+    //   }
+    // },
   },
 });

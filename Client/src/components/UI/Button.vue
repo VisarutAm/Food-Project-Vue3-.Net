@@ -1,7 +1,6 @@
 <template >
     <div>
-      <button
-      @click="onClick"
+      <button      
         class="relative overflow-hidden rounded-full bg-gray-700 text-white w-[180px] h-[60px] text-lg font-semibold flex justify-center items-center transition-all duration-300"
       >
         <div
@@ -25,11 +24,7 @@
       label:{
           type:String,
           default:'Button'
-      },
-      onClick:{
-          type:Function,
-          default:()=>{}
-      },
+      },      
   })
   </script>
   

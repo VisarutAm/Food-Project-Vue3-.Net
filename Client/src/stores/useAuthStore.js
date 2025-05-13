@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: null,
@@ -17,11 +18,10 @@ export const useAuthStore = defineStore('auth', {
     setResponse(response) {
       this.response = response
     },
-    logout() {
+    logout() {     
       this.token = null
       this.user = null
-      localStorage.removeItem('token')
-      
+      localStorage.removeItem('token')      
     }
   },
   persist: true, // ทำให้ store อยู่แม้ reload (ต้องใช้ plugin pinia-plugin-persistedstate)

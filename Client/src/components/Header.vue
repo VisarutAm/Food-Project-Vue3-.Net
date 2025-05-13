@@ -1,5 +1,5 @@
 <template >
-  <header class="header relative w-full rounded-4xl overflow-hidden rounded-b-3xl">
+  <header id="home" class="header relative w-full rounded-4xl overflow-hidden rounded-b-3xl">
     <img src="../assets/TomYumSoup.png" alt="bg-header" class="w-full h-[750px] object-cover"/>
     <div class="header-contents absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center text-white text-center px-4 bg-black/20 ">
       <div class="absolute bottom-20 left-20">
