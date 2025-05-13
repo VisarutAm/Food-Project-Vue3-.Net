@@ -17,6 +17,7 @@ namespace Server.DTOs.Stock.Account
         public string? Email { get; set;}
 
         [Required]
+        [MinLength(12, ErrorMessage = "Password requires a minimum of 12 characters.")]
         public string? Password { get; set;}
         
     }

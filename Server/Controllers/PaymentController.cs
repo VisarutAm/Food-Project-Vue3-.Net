@@ -8,12 +8,14 @@ using Stripe.Checkout;
 using DotNetEnv;
 using Server.Service;
 using Server.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Server.Controllers
 {
     [ApiController]
     [Route("api/order")]
+    [Authorize]
     public class PaymentController : ControllerBase
     {
         private readonly OrderService _orderService;
@@ -133,6 +135,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> SaveOrder([FromBody] OrderDto order)
         {
             // 🔍 Debug ข้อมูล order
@@ -174,8 +177,9 @@ namespace Server.Controllers
             return Ok(new { message = "Order saved!" });
         }
 
-
+        //Admin
         [HttpGet("all")]
+        [Authorize]
         public async Task<IActionResult> GetAllOrders()
         {
             var orders = await _orderService.GetAllOrdersAsync();
@@ -183,6 +187,7 @@ namespace Server.Controllers
         }
 
         [HttpGet("email/{email}")]
+        [Authorize]
         public async Task<IActionResult> GetOrdersByEmail(string email)
         {
             var orders = await _orderService.GetOrdersByEmailAsync(email);
@@ -199,7 +204,9 @@ namespace Server.Controllers
         //     return Ok(new { message = "Status updated" });
         // }
 
+         //Admin
         [HttpPut("status/{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateOrderStatus(string id, [FromBody] UpdateStatusDto request)
         {
             var updated = await _orderService.UpdateOrderStatusAsync(id, request.NewStatus);

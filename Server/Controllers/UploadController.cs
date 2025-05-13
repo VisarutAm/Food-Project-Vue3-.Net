@@ -59,6 +59,7 @@ using MongoDB.Driver;
 using Server.Service;
 using Server.Interfaces;
 using Server.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Server.Controllers
 {
@@ -84,6 +85,7 @@ namespace Server.Controllers
 
         [HttpPost]
         [Route("add")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UploadImage(
             IFormFile file,
             [FromForm] string name,
@@ -143,6 +145,7 @@ namespace Server.Controllers
 
         [HttpDelete]
         [Route("delete/{id}")]
+        [Authorize(Roles = "Admin")]
 
         public async Task<IActionResult> DeleteFile([FromRoute] string id)
         {
