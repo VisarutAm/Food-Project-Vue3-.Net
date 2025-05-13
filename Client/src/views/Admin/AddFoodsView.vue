@@ -91,7 +91,9 @@ import { ref } from "vue";
 import axios from "axios";
 import uploadArea from "../../assets/uploadArea.png";
 import NavbarAdmin from "../../components/Admin/NavbarAdmin.vue";
+import { useToast } from 'vue-toastification';
 
+const toast = useToast(); 
 const loading = ref(false);
 const image = ref(null);
 const imagePreview = ref(null);
@@ -112,7 +114,7 @@ const handleImageChange = (e) => {
 
 const onSubmitHandler = async () => {
   if (!image.value) {
-    alert("Image not selected");
+    toast.error("Image not selected");
     return;
   }
 
@@ -128,7 +130,7 @@ const onSubmitHandler = async () => {
   try {
     const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/food/add`, dataToSend);
     if (res.data.success) {
-      alert(res.data.message);
+      toast.success(res.data.message);
       formData.value = {
         name: "",
         description: "",
@@ -138,10 +140,10 @@ const onSubmitHandler = async () => {
       image.value = null;
       imagePreview.value = null;
     } else {
-      alert(res.data.message);
+      toast.error(res.data.message);
     }
   } catch (err) {
-    alert(err.response?.data?.message || "Something went wrong");
+    toast.error(err.response?.data?.message || "Something went wrong");
   } finally {
     loading.value = false; // 👉 จบโหลด
   }

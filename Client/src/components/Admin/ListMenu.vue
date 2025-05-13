@@ -5,15 +5,18 @@ import { useMenuStore } from "../../stores/useMenuStore";
 import { storeToRefs } from "pinia";
 import axios from "axios";
 import { toRaw } from 'vue';
+import { useToast } from 'vue-toastification';
 
 const menuStore = useMenuStore();
 const { fetchMenu } = menuStore;
 const { menuList, loading, error } = storeToRefs(menuStore);
+const toast = useToast(); 
 
 onMounted(async () => {
   await fetchMenu();
  // console.log("✅ เมนูที่โหลดมา:", menuList.value);
 });
+
 
 // watch(menuList, (val) => {
 //   console.log("📦 อัปเดตเมนู:", val);
@@ -36,13 +39,13 @@ const deleteItem = async (id) => {
   // console.log("🧪 menuList:", clonedMenuList);
   // console.log(typeof id);
   try {
-    await axios.delete(`https://localhost:7089/api/food/delete/${id}`);
-    alert("ลบเมนูเรียบร้อยแล้ว");
+    await axios.delete(`${import.meta.env.VITE_API_URL}/api/food/delete/${id}`);
+    toast.success("Menu deleted successfully. ✅");
     clonedMenuList = clonedMenuList.filter((item) => item.id !== id);
     menuList.value = clonedMenuList; 
   } catch (error) {
     console.error("Delete error:", error);
-    alert(error.response?.data?.message || "ลบไม่สำเร็จ");
+    toast.error(error.response?.data?.message || "Failed to delete menu. ❌");
   }
 };
 </script>
